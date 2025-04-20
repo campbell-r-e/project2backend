@@ -20,5 +20,5 @@ const userschema = new Schema({
         required: true
     }
 })
-module.exports = mongoose.model('email', userschema);
+module.exports = mongoose.model('User', userschema);
 
