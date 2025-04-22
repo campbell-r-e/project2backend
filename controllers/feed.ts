@@ -91,40 +91,39 @@ export const login = async (req: Request, res: Response) => {
   };
 
 export const signup = async (req: Request, res: Response) => {
-    const { username, password } = req.body as LoginRequest;
-  
-    try {
-      const user = await User.findOne({ username });
-  
-      if (user) {
-        return res.status(401).json({ success: false, message: '/login' } as LoginResponse);
-      }
-      
-      
-      const hashedPassword = await bcrypt.hash(password,12);
+  const { username, password } = req.body as LoginRequest;
 
-      const newUser = new User({
-        username,
-        email: username, 
-        password: hashedPassword,
-        access:"basic",
-      });
-    
-      
-      newUser.save()
-        .then(() => console.log('User saved!'))
-        .catch(err => console.error('Error saving user:', err));
-  
-     
-  
-  
-      return res.json({ success: true, message: 'Signup was successful' } as LoginResponse);
-  
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: 'Server error' } as LoginResponse);
+  try {
+    const user = await User.findOne({ username });
+
+    if (user) {
+      return res.status(401).json({ success: false, message: '/login' } as LoginResponse);
     }
-  };
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Find the "basic" access document
+    const accessDoc = await (await import('../models/access.js')).default.findOne({ access: 'basic' });
+    if (!accessDoc) {
+      return res.status(500).json({ success: false, message: 'Access level not found' } as LoginResponse);
+    }
+
+    const newUser = new User({
+      username,
+      email: username,
+      password: hashedPassword,
+      access: accessDoc._id, // Reference to access document
+    });
+
+    await newUser.save();
+
+    return res.json({ success: true, message: 'Signup was successful' } as LoginResponse);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' } as LoginResponse);
+  }
+};
 
 export const createLogbookEntry = async (req: Request, res: Response) => {
   try {
