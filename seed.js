@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const User = require('./models/account'); 
+const User = require('./models/account');
 const LogbookEntry = require('./models/logbook');
 const Access = require('./models/access');
-
 
 const MONGODB_URI = 'mongodb://localhost:27017/logbookdb';
 
@@ -14,27 +13,34 @@ async function seedDatabase() {
     });
     console.log('Connected to MongoDB');
 
-
     await Access.deleteMany({});
     await User.deleteMany({});
     await LogbookEntry.deleteMany({});
     console.log('🧹 Cleared existing collections');
 
-    
-    const access = new Access({ access: 'basic' });
-    await access.save();
-    console.log('🔑 Access level created:', access);
+    // Create access levels
+    const accessBasic = new Access({ access: 'basic' });
+    const accessAdmin = new Access({ access: 'admin' });
+    await accessBasic.save();
+    await accessAdmin.save();
+    console.log('Access levels created:', accessBasic, accessAdmin);
 
-  
+    // Create users
     const user = new User({
-      email: 'test@example.com',
-      password: 'hashedpassword', 
-      access: access._id
+      email: 'user@example.com',
+      password: 'hashedpassword', // Replace with actual hash in production
+      access: accessBasic._id
+    });
+    const admin = new User({
+      email: 'admin@example.com',
+      password: 'hashedpassword', // Replace with actual hash in production
+      access: accessAdmin._id
     });
     await user.save();
-    console.log('👤 User created:', user);
+    await admin.save();
+    console.log('Users created:', user, admin);
 
-   
+    // Create logbook entries for the user
     const entries = [
       {
         User: user._id,
@@ -68,7 +74,7 @@ async function seedDatabase() {
     ];
 
     await LogbookEntry.insertMany(entries);
-    console.log(`Inserted ${entries.length} logbook entries.`);
+    console.log(`Inserted ${entries.length} logbook entries for user.`);
 
   } catch (err) {
     console.error('Error seeding database:', err);
