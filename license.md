@@ -1,7 +1,7 @@
-# Permissive Public License (PPL-1.11)
+# Permissive Public License (PPL-1.12)
 
 A source-available software license for permissive reuse with protective boundaries  
-**SPDX-License-Identifier:** `LicenseRef-PPL-1.11`
+**SPDX-License-Identifier:** `LicenseRef-PPL-1.12`
 
 ---
 
@@ -30,7 +30,7 @@ You are also granted a perpetual, worldwide, non-exclusive, royalty-free, irrevo
 
 You may distribute this Software or derivative works under only one of the following conditions:
 
-- **(a)** Under this license (PPL-1.11), with all original copyright and license notices preserved.
+- **(a)** Under this license (PPL-1.12), with all original copyright and license notices preserved.
 - **(b)** As part of a proprietary (closed-source) application, where the combined work is not licensed under any open source or source-available license and the source code is not made publicly available.
 
 You may **not** distribute, sublicense, or relicense this Software or derivative works under any license that requires:
@@ -55,13 +55,13 @@ This Software may be used within larger software systems, including those releas
 - This Software and any derivative works thereof retain this license, and  
 - Are not relicensed under the broader project's terms or any copyleft license
 
-> **Compatibility Note:** This license is compatible with MIT, BSD, and Apache 2.0 licensed projects, provided this Software remains under PPL-1.11.
+This allows the Software to be used alongside other open components without conflict, provided PPL-1.12 terms are met for this component.
 
 ---
 
 ## 4. Linking and API Interface Exception
 
-Interfacing with this Software over a network protocol (e.g., HTTP, WebSocket, API requests) does not, by itself, create a derivative work or require the interfacing software to be licensed under PPL-1.11.
+Interfacing with this Software over a network protocol (e.g., HTTP, WebSocket, API requests) does not, by itself, create a derivative work or require the interfacing software to be licensed under PPL-1.12.
 
 ---
 
@@ -69,7 +69,7 @@ Interfacing with this Software over a network protocol (e.g., HTTP, WebSocket, A
 
 Any distribution of this Software or derivative works must:
 
-- Include a copy of this license (PPL-1.11)  
+- Include a copy of this license (PPL-1.12)  
 - Clearly state that the work is based on or includes components from the original project  
 - Identify the original project name and authors, if applicable
 
@@ -79,6 +79,8 @@ Attribution must be **prominent and reasonably visible** to users or developers.
 - Package metadata  
 - About/help/legal sections  
 - Console banners, credits, or splash screens
+
+> **For libraries, services, or headless tools** where visible attribution is impractical, attribution in README or package metadata is sufficient.
 
 > Attribution is required even in renamed or rebranded forks.
 
@@ -113,7 +115,7 @@ This includes:
 
 ## 9. Definitions
 
-- **Software**: The original code licensed under PPL-1.11  
+- **Software**: The original code licensed under PPL-1.12  
 - **Derivative works**: Modified, adapted, or extended versions  
 - **Proprietary application**: A non-open-source system that does not expose code or license under any source-available model
 
@@ -121,7 +123,7 @@ This includes:
 
 ## 10. Contributor License Notice
 
-By contributing code or content, you license it under **this version** of PPL-1.11.  
+By contributing code or content, you license it under **this version** of PPL-1.12.  
 You affirm it is original or legally sublicensable under these terms.
 
 ---
@@ -133,6 +135,8 @@ All distributions (source or binary) must include this license file, in:
 - LICENSE  
 - About/help dialog  
 - Product legal section
+
+> A `NOTICE.md` file may optionally be included to document third-party components. It is the responsibility of the distributor to ensure compliance with all third-party licenses.
 
 ---
 
@@ -186,6 +190,30 @@ You are permitted to use this Software for:
 This Software is provided with **no guarantee of security, stability, or suitability** for safety-critical systems.
 
 You are responsible for compliance with **export control laws** and all applicable regulations governing your use of this Software.
+
+---
+
+## 19. Conditional License Exceptions (Per Project Basis)
+
+Upon written request and explicit permission from the original authors, portions of this Software may be granted a dual license under a more permissive license (e.g., MIT) for use **only within a specific project**.
+
+Such exceptions:
+
+- Are granted on a **project-specific basis**  
+- Do **not** permit re-extraction or broader relicensing of the code  
+- Require that all other uses remain under PPL-1.12 unless otherwise agreed
+
+---
+
+## 20. Use in Open Standards and Interoperability Projects
+
+You may use this Software to implement or contribute to open standards, specifications, or interoperability efforts, provided this license is preserved for this component.
+
+This includes use in:
+
+- Reference implementations  
+- Federated services  
+- Standards-aligned APIs
 
 ---
 
