@@ -54,7 +54,7 @@ export const login = async (req: Request, res: Response) => {
     const { username, password } = req.body as LoginRequest;
   
     try {
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ email: username }); // if username is actually an email
   
       if (!user) {
         return res.status(401).json({ success: false, message: 'Invalid username or password' } as LoginResponse);
