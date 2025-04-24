@@ -28,7 +28,7 @@ interface LoginResponse {
 }
 
 export const getalldata_by_user = async (req: Request, res: Response) => {
-    const userEmail = req.query.user;
+    const userEmail = req.username;
     console.log('[SERVER] Incoming user:', userEmail);
   
     if (!userEmail || typeof userEmail !== 'string' || !userEmail.includes('@')) {
@@ -54,7 +54,7 @@ export const login = async (req: Request, res: Response) => {
     const { username, password } = req.body as LoginRequest;
   
     try {
-      const user = await User.findOne({ email: username }); // if username is actually an email
+      const user = await User.findOne({ email: username }); 
   
       if (!user) {
         return res.status(401).json({ success: false, message: 'Invalid username or password' } as LoginResponse);
@@ -66,7 +66,7 @@ export const login = async (req: Request, res: Response) => {
         return res.status(401).json({ success: false, message: 'Invalid username or password' } as LoginResponse);
       }
 
-      // Create JWT token
+
       const tokenPayload: TokenPayload = {
         userId: user._id.toString(),
         username: user.email
@@ -102,7 +102,7 @@ export const signup = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Find the "basic" access document
+    
     const accessDoc = await (await import('../models/access.js')).default.findOne({ access: 'basic' });
     if (!accessDoc) {
       return res.status(500).json({ success: false, message: 'Access level not found' } as LoginResponse);
@@ -112,7 +112,7 @@ export const signup = async (req: Request, res: Response) => {
       username,
       email: username,
       password: hashedPassword,
-      access: accessDoc._id, // Reference to access document
+      access: accessDoc._id, 
     });
 
     await newUser.save();
@@ -146,7 +146,7 @@ export const createLogbookEntry = async (req: Request, res: Response) => {
     }
 
     const entry = new LogbookEntry({
-      User: username, // Store username instead of userId
+      User: username, 
       call, qso_date, time_on, band, mode, rst_sent, rst_rcvd,
       freq, freq_rx, station_callsign, my_gridsquare,
       gridsquare, tx_pwr, operator, my_sig, my_sig_info,
@@ -167,6 +167,26 @@ export const createLogbookEntry = async (req: Request, res: Response) => {
   }
 };
 
+
+
+
+
+export const deleteLogbookEntry = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params; 
+ 
+    const entry = await LogbookEntry.findByIdAndDelete(id);
+
+    if (!entry) {
+      return res.status(404).json({ success: false, message: 'Logbook entry not found' });
+    }
+
+    return res.status(200).json({ success: true, message: 'Logbook entry deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting logbook entry:', error);
+    return res.status(500).json({ success: false, message: 'Server error while deleting logbook entry' });
+  }
+};
 export default {
     getalldata_by_user,
     login

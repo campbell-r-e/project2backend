@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction, RequestHandler } from 'express';
-import { getalldata_by_user, login, signup } from '../controllers/feed.js';
+import { deleteLogbookEntry, getalldata_by_user, login, signup } from '../controllers/feed.js';
 import { verifyToken } from '../middleware/auth.js';
 
 const router = Router();
@@ -13,11 +13,13 @@ function asyncHandler(
   };
 }
 
-// Public routes
+
 router.post('/login', asyncHandler(login));
 router.post('/signup', asyncHandler(signup));
 
-// Protected routes
-router.get('/alldata', verifyToken as RequestHandler, asyncHandler(getalldata_by_user));
+
+
+router.get('/logbook', verifyToken as RequestHandler, asyncHandler(getalldata_by_user));
+router.delete('/logbook/:id',verifyToken as RequestHandler,asyncHandler(deleteLogbookEntry));
 
 export default router;

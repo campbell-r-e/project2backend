@@ -7,52 +7,46 @@ const logbookSchema = new Schema({
     ref: 'User',
     required: true
   },
-
-  // Required / Common fields
-  call: { type: String, required: true }, // Station worked
-  qso_date: { type: String, required: true }, // YYYYMMDD
-  time_on: { type: String, required: true }, // HHMM or HHMMSS
+  call: { type: String, required: true },
+  qso_date: { type: String, required: true },
+  time_on: { type: String, required: true },
   band: { type: String, required: true },
   mode: { type: String, required: true },
   rst_sent: { type: String, required: true },
   rst_rcvd: { type: String, required: true },
-  freq: { type: Number }, // Optional if band is used
-  freq_rx: { type: Number }, // Optional (if split)
+  freq: { type: Number },
+  freq_rx: { type: Number },
   qsl_rcvd: { type: String, enum: ['Y', 'N', 'R'], default: 'N' },
   qsl_sent: { type: String, enum: ['Y', 'N', 'R'], default: 'N' },
-
-  // Optional ADIF fields
-  station_callsign: { type: String }, // Your station call
-  my_gridsquare: { type: String }, // Optional
-  gridsquare: { type: String }, // DX station grid
-  tx_pwr: { type: String }, // Power level used
-  operator: { type: String }, // Callsign of operator
-  my_sig: { type: String }, // Optional, e.g. "SOTA", "POTA"
+  station_callsign: { type: String },
+  my_gridsquare: { type: String },
+  gridsquare: { type: String },
+  tx_pwr: { type: String },
+  operator: { type: String },
+  my_sig: { type: String },
   my_sig_info: { type: String },
-  sig: { type: String }, // Optional
+  sig: { type: String },
   sig_info: { type: String },
-  qsl_via: { type: String }, // QSL manager
-  contest_id: { type: String }, // Optional for contest logging
-  ituz: { type: Number }, // ITU zone
-  cqz: { type: Number }, // CQ zone
-  dxcc: { type: Number }, // DXCC entity code
-  country: { type: String }, // Derived from DXCC
+  qsl_via: { type: String },
+  contest_id: { type: String },
+  ituz: { type: Number },
+  cqz: { type: Number },
+  dxcc: { type: Number },
+  country: { type: String },
   eqsl_qsl_rcvd: { type: String, enum: ['Y', 'N', 'R'] },
   eqsl_qsl_sent: { type: String, enum: ['Y', 'N', 'R'] },
   lotw_qsl_rcvd: { type: String, enum: ['Y', 'N', 'R'] },
   lotw_qsl_sent: { type: String, enum: ['Y', 'N', 'R'] },
   comment: { type: String },
-  qsl_rcvd_date: { type: String }, // YYYYMMDD
-  qsl_sent_date: { type: String }, // YYYYMMDD
-  time_off: { type: String }, // HHMM or HHMMSS
-  prop_mode: { type: String }, // E.g. "SAT", "TR"
+  qsl_rcvd_date: { type: String },
+  qsl_sent_date: { type: String },
+  time_off: { type: String },
+  prop_mode: { type: String },
   sat_name: { type: String },
   sat_mode: { type: String },
-  rx_pwr: { type: String }, // Optional
+  rx_pwr: { type: String },
   ant_az: { type: Number },
   ant_el: { type: Number },
-
-  // Timestamps
   createdAt: { type: Date, default: Date.now }
 });
 

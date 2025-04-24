@@ -5,6 +5,10 @@ const Access = require('./models/access');
 
 const MONGODB_URI = 'mongodb://localhost:27017/logbookdb';
 
+
+const prehashedUserPassword = '$2b$12$w6v3Qw7nQw6v3Qw7nQw7nOQw7nQw7nQw7nQw7nQw7nQw7nQw7nQw7n'; 
+const prehashedAdminPassword = '$2b$12$w6v3Qw7nQw6v3Qw7nQw7nOQw7nQw7nQw7nQw7nQw7nQw7nQw7nQw7n'; 
+
 async function seedDatabase() {
   try {
     await mongoose.connect(MONGODB_URI, {
@@ -18,29 +22,26 @@ async function seedDatabase() {
     await LogbookEntry.deleteMany({});
     console.log('🧹 Cleared existing collections');
 
-    // Create access levels
     const accessBasic = new Access({ access: 'basic' });
     const accessAdmin = new Access({ access: 'admin' });
     await accessBasic.save();
     await accessAdmin.save();
     console.log('Access levels created:', accessBasic, accessAdmin);
 
-    // Create users
     const user = new User({
       email: 'user@example.com',
-      password: 'hashedpassword', // Replace with actual hash in production
+      password: prehashedUserPassword,
       access: accessBasic._id
     });
     const admin = new User({
       email: 'admin@example.com',
-      password: 'hashedpassword', // Replace with actual hash in production
+      password: prehashedAdminPassword,
       access: accessAdmin._id
     });
     await user.save();
     await admin.save();
     console.log('Users created:', user, admin);
 
-    // Create logbook entries for the user
     const entries = [
       {
         User: user._id,
