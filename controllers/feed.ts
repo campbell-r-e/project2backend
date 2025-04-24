@@ -42,7 +42,7 @@ export const getalldata_by_user = async (req: Request, res: Response) => {
         return res.status(404).json({ error: 'User not found' });
       }
   
-      const entries = await LogbookEntry.find({ User: user._id }).populate('User');
+      const entries = await LogbookEntry.find({ User: user._id });
       res.json(entries);
     } catch (err) {
       console.error('Error fetching logbook entries:', err);
