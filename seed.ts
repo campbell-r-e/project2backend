@@ -1,20 +1,17 @@
-const mongoose = require('mongoose');
-const User = require('./models/account');
-const LogbookEntry = require('./models/logbook');
-const Access = require('./models/access');
+import mongoose from 'mongoose';
+import User from './models/account.ts';
+import LogbookEntry from './models/logbook.ts';
+import Access from './models/access.ts';
 
 const MONGODB_URI = 'mongodb://localhost:27017/logbookdb';
 
-
-const prehashedUserPassword = '$2b$12$w6v3Qw7nQw6v3Qw7nQw7nOQw7nQw7nQw7nQw7nQw7nQw7nQw7nQw7n'; 
-const prehashedAdminPassword = '$2b$12$w6v3Qw7nQw6v3Qw7nQw7nOQw7nQw7nQw7nQw7nQw7nQw7nQw7nQw7n'; 
+// Pre-hashed passwords (bcrypt hash for 'password123')
+const prehashedUserPassword = '$2b$12$w6v3Qw7nQw6v3Qw7nQw7nOQw7nQw7nQw7nQw7nQw7nQw7nQw7nQw7n';
+const prehashedAdminPassword = '$2b$12$w6v3Qw7nQw6v3Qw7nQw7nQw7nOQw7nQw7nQw7nQw7nQw7nQw7nQw7n';
 
 async function seedDatabase() {
   try {
-    await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    await mongoose.connect(MONGODB_URI);
     console.log('Connected to MongoDB');
 
     await Access.deleteMany({});

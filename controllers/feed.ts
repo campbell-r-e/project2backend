@@ -94,10 +94,10 @@ export const signup = async (req: Request, res: Response) => {
   const { username, password } = req.body as LoginRequest;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email: username });
 
     if (user) {
-      return res.status(401).json({ success: false, message: '/login' } as LoginResponse);
+      return res.status(401).json({ success: false, message: 'failed' } as LoginResponse);
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
