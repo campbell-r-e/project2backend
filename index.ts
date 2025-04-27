@@ -4,19 +4,19 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import feedRoutes from './routes/feed.js';
 
-// Load environment variables
+
 dotenv.config();
 
 const app = express();
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 
-// Routes
+
 app.use('/feed', feedRoutes);
 
-// Error handling middleware
+
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   console.error(error);
   const status = error.statusCode || 500;
@@ -24,7 +24,7 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.status(status).json({ message });
 });
 
-// Connect to MongoDB
+
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/logbookdb';
 
 mongoose.connect(MONGODB_URI)

@@ -5,7 +5,7 @@ declare module 'express' {
     user?: {
       id: string;
       username: string;
-      // add any other fields you put in the JWT
+   
     };
   }
 }
