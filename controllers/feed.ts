@@ -43,7 +43,11 @@ export const getalldata_by_user = async (req: Request, res: Response) => {
       }
   
       const entries = await LogbookEntry.find({ User: user._id });
-      res.json(entries);
+      const entriesWithId = entries.map(entry => ({
+        ...entry.toObject(),
+        id: entry._id.toString()
+      }));
+      res.json(entriesWithId);
     } catch (err) {
       console.error('Error fetching logbook entries:', err);
       res.status(500).json({ error: 'Server error' });
