@@ -21,7 +21,9 @@ export const userschema = new Schema({
         required: true
     }
 })
-
+userschema.methods.comparePassword = function (candidatePassword: string): Promise<boolean> {
+    return bcrypt.compare(candidatePassword, this.password);
+  };
 
 export default mongoose.model('User', userschema);
 
